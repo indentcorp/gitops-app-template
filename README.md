@@ -17,6 +17,7 @@
     - `GITHUB_PERSONAL_ACCESS_TOKEN`: Github personal access token. Select all of `repo` scope. Generate [here](https://github.com/settings/tokens)
 1. Edit the name of infrastructure repository. (Line 60)
 1. Edit the name of kustomize image name. (Line 84)
+1. If you want to utilize `prod` stage, duplicate from line 82~85.
 
 ## `src/`
 1. Source of your application should be here.
