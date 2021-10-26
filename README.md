@@ -1,7 +1,7 @@
 # GitOps Application Template
 
 # Prerequisite
-- Clone [GitOps Infrastructure Template](https://github.com/indentcorp/gitops-app-template) and refer to the following `README.md` for customizing project.
+- Clone [GitOps Infrastructure Template](https://github.com/indentcorp/gitops-infra-template) and refer to the following `README.md` for customizing project.
 - Install [`kubectl`](https://kubernetes.io/docs/tasks/tools/).
 - Create ECR Repository for application.
 
