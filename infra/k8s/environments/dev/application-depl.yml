@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: <APPLICATION_NAME>-depl
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: <APPLICATION_NAME>
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: environment
+                    operator: In
+                    values:
+                      - dev
