@@ -11,9 +11,6 @@ jobs:
   build:
     runs-on: ubuntu-20.04
 
-    outputs:
-      image-tag: ${{ steps.build-image.outputs.image-tag }}
-
     steps:
       - uses: actions/checkout@v2
 
@@ -43,12 +40,6 @@ jobs:
           echo "::set-output name=ecr-registry::$ECR_REGISTRY"
           echo "::set-output name=image-tag::$IMAGE_TAG"
 
-  # Kustomize resources and commit.
-  deploy:
-    runs-on: ubuntu-20.04
-    needs: build
-
-    steps:
       - name: Setup Kustomize
         uses: imranismail/setup-kustomize@v1
 
