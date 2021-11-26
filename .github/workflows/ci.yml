@@ -37,4 +37,27 @@ jobs:
           echo "Pushing image to ECR..."
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image-tag::$IMAGE_TAG"
-          
+
+      - name: Get current branch name
+        id: extract-branch
+        run: echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
+
+      - name: Map branch name
+        id: map-branch
+        run: |
+          if [[ ${{steps.extract-branch.outputs.branch}} == 'main' ]]; then
+              echo "::set-output name=environment::prod"
+          else
+              echo "::set-output name=environment::dev"
+          fi
+
+      - name: Kustomize Kubernetes resources
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
+          IMAGE_TAG: ${{ steps.build-image.outputs.image-tag }}
+        run: |
+          cd infra/k8s/environments/${{steps.map-branch.outputs.environment}}
+          echo "Set new image tag: ${{steps.build-image.outputs.image-tag}}"
+          kustomize edit set image IMAGE-PLACEHOLDER=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          cat kustomization.yml
