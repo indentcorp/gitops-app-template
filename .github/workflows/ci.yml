@@ -61,3 +61,29 @@ jobs:
           echo "Set new image tag: ${{steps.build-image.outputs.image-tag}}"
           kustomize edit set image IMAGE-PLACEHOLDER=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           cat kustomization.yml
+
+      - name: Archive K8s resources
+        uses: actions/upload-artifact@v2
+        with:
+          name: k8s
+          path: infra/k8s
+
+      - name: Set target branch name
+        id: set-target-branch
+        run: |
+          case ${{steps.extract-branch.outputs.branch}} in
+              main|master)
+                  echo "::set-output name=branch::main"
+                  ;;
+              *)
+                  echo "::set-output name=branch::develop"
+                  ;;
+          esac
+
+      - name: Dispatch repository
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.INFRA_ACCESS_TOKEN }}
+          repository: ${{ secrets.INFRA_REPO }}
+          event-type: image-created
+          client-payload: '{"branch": "${{ steps.set-target-branch.outputs.branch }}", "run_id": "${{ github.run_id }}"}'
