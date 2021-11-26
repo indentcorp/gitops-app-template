@@ -36,8 +36,6 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG src/
           echo "Pushing image to ECR..."
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          # echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-          echo "::set-output name=ecr-registry::$ECR_REGISTRY"
           echo "::set-output name=image-tag::$IMAGE_TAG"
 
       - name: Setup Kustomize
