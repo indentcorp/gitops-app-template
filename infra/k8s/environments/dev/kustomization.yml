@@ -10,6 +10,3 @@ patchesStrategicMerge:
 - credentials.yml
 
 namespace: <NAME_OF_DEV_NAMESPACE>
-images:
-- name: <APPLICATION_NAME>-image
-  newName: <ECR_REPOSITORY_URL>
