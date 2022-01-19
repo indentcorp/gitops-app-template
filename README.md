@@ -29,3 +29,6 @@
 To finish configuring the `infra` repository, you must modify every single file in the `./k8s` directory except `./base/kustomization.yml`.
 Modify the placeholder in the angle bracket to a value appropriate for your project, just like any other file in the `./argo` directory.
 NOTE: Do not apply the `./k8s` directory to the K8s cluster directly. That is exactly what ArgoCD will do for you.
+
+## Contact
+If you have any questions or want to improve GitOps flow, don't hesitate to let us know on [#team-infra-sre](https://indentcorp.slack.com/archives/C02D3SVPWC8) channel! Any contributions you make are greatly appreciated.
