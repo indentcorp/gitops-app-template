@@ -63,7 +63,7 @@ jobs:
           cat kustomization.yml
 
       - name: Archive K8s resources
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: k8s
           path: infra/k8s
